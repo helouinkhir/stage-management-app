@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Edit Company</h1>
+<mat-progress-bar *ngIf="load" mode="indeterminate"></mat-progress-bar>
+<div mat-dialog-content>
+
+<form  [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field class="full-width" appearance="outline" floatLabel="always">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" formControlName="name">
+    <mat-error *ngIf="editForm.controls['name'].invalid">Required</mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" [disabled]="!editForm.valid || load" type="submit">Edit</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="false" [disabled]="load"  type="button">Cancel</button>
+  </form>
+
+  </div>
+

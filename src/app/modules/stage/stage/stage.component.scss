@@ -1,0 +1,22 @@
+.stage-container {
+  margin-top: 10px ;
+  min-height: 200px;
+  width:300px;
+  transition: transform .01s, visibility 0s;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .3);
+  z-index: 10;
+  font-size: .9em;
+  background: white;
+  padding: 18px 16px;
+  border-radius: 4px;
+}
+.stage-container .title {
+  width: 100%;
+  border-bottom: 2px solid blue;
+}
+.stage-container .title button{
+ float: right;
+}
+.company-container {
+  margin:6px;
+}

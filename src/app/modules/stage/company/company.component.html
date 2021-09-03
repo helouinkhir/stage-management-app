@@ -1,0 +1,13 @@
+<mat-card fxLayout="row">
+  <h3 fxFlex="100">{{company.name}}</h3>
+  <button   mat-icon-button [matMenuTriggerFor]="actions">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+</mat-card>
+<mat-menu #actions="matMenu">
+
+  <button mat-menu-item (click) ="editCompany()">Edit</button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>Delete</button>
+
+</mat-menu>

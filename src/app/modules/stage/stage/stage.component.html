@@ -1,0 +1,21 @@
+<div class="stage-container">
+
+  <div class="title" fxLayout="row">
+    <h2 fxFlex="100">{{stage.name}}</h2>
+    <button  mat-icon-button [matMenuTriggerFor]="actions">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+
+  <div class="company-container" fxLayout="column" fxLayoutGap="10px">
+    <sm-company *ngFor="let company of stage.companies" cdkDrag  [company]="company"></sm-company>
+  </div>
+
+  <button mat-button (click)="addCompany()" ><mat-icon>add</mat-icon>Add company</button>
+</div>
+
+<mat-menu #actions="matMenu">
+  <button mat-menu-item (click) ="editStage()">Edit</button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>Delete</button>
+</mat-menu>

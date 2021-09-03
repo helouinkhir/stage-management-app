@@ -1,0 +1,8 @@
+<mat-progress-bar *ngIf="load" mode="indeterminate"></mat-progress-bar>
+
+<button (click) = "addStage()" mat-raised-button color="primary"><mat-icon>add</mat-icon>Add Stage</button>
+
+<div class="container" cdkDropListGroup fxLayout="row" fxLayoutGap="20px">
+ <sm-stage cdkDropList [cdkDropListData]="stage.companies" (cdkDropListDropped)="drop($event)" *ngFor="let stage of stages" [stage]="stage"></sm-stage>
+</div>
+
