@@ -50,12 +50,13 @@ export class ListStagesComponent implements OnInit {
         this.companies = data;
 
         if (this.stages.length && this.companies.length) {
-          this.stages.forEach((stage) => {
-            stage.companies = this.companies.filter((c) => c.stage === stage.id);
-          });
+          this.stages.map((stage) => ({
+            ...stage,
+            companies: this.companies.filter((c) => c.stage === stage.id),
+          }));
         }
       },
-      (err) => {
+      (err): void => {
         this.load = false;
         if (err.apiMsg) {
           this.toastr.error((err.apiMsg ? 'Somthing wrong' : 'Server Error'), 'Error');
@@ -74,6 +75,7 @@ export class ListStagesComponent implements OnInit {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   drop(event: CdkDragDrop<ICompany[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ICompany } from 'src/app/shared/interfaces/company.interface';
 import { EditComponent } from './edit/edit.component';
@@ -10,37 +10,34 @@ import { AddCompanyComponent } from '../company/add-company/add-company.componen
   templateUrl: './stage.component.html',
   styleUrls: ['./stage.component.scss'],
 })
-export class StageComponent implements OnInit {
-  @Input() stage: IStage;
+export class StageComponent {
+  @Input() stage: IStage | undefined;
 
   constructor(private dialog: MatDialog) { }
 
-  ngOnInit(): void {
-  }
-
   editStage(): void {
     const dialogRef = this.dialog.open(EditComponent, {
-      data: { name: this.stage.name, id: this.stage.id },
+      data: { name: this.stage?.name, id: this.stage?.id },
     });
 
     dialogRef.afterClosed().subscribe((newName: string) => {
-      if (newName) {
+      if (newName && this.stage) {
         this.stage.name = newName;
       }
     });
   }
 
   addCompany(): void {
-    if (!this.stage.companies) {
+    if (!this.stage?.companies) {
       this.stage.companies = [];
     }
 
     const dialogRef = this.dialog.open(AddCompanyComponent, {
-      data: { stage: this.stage.id },
+      data: { stage: this.stage?.id },
     });
 
     dialogRef.afterClosed().subscribe((newCompany: ICompany) => {
-      if (newCompany) {
+      if (this.stage !== undefined && newCompany) {
         this.stage.companies.push(newCompany);
       }
     });
