@@ -34,7 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 const materialModules = [
@@ -72,16 +72,16 @@ const materialModules = [
   MatSlideToggleModule,
   MatStepperModule,
   DragDropModule,
-  FlexLayoutModule
+  FlexLayoutModule,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    ...materialModules
+    ...materialModules,
   ],
   exports: [
-    ...materialModules
+    ...materialModules,
   ],
 })
 

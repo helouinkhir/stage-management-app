@@ -4,16 +4,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ToastrService } from 'ngx-toastr';
 import { IStage } from 'src/app/shared/interfaces/stage.interface';
-import { StageService } from './../../stage.service';
+import { StageService } from '../../stage.service';
 
 @Component({
   selector: 'sm-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
-
   editForm: FormGroup;
+
   load = false;
 
   constructor(
@@ -21,32 +21,32 @@ export class EditComponent implements OnInit {
     private stageService: StageService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: IStage,
-    public dialogRef: MatDialogRef<EditComponent>) { }
+    public dialogRef: MatDialogRef<EditComponent>,
+  ) { }
 
   ngOnInit(): void {
-   this.editForm = this.fb.group({
-      name:  [this.data.name , Validators.required],
+    this.editForm = this.fb.group({
+      name: [this.data.name, Validators.required],
     });
   }
 
   onSubmit(): void {
     this.load = true;
 
-    this.stageService.editStage(this.data.id , this.editForm.value.name).subscribe(
+    this.stageService.editStage(this.data.id, this.editForm.value.name).subscribe(
 
-       () => {
-          this.load = false;
-          this.dialogRef.close(this.editForm.value.name);
-       },
-        err => {
-          this.load = false;
-          if (err.apiMsg) {
-           this.toastr.error((err.apiMsg ? 'Somthing wrong' : 'Server Error'), 'Error');
-         }
-          this.dialogRef.close(null);
+      () => {
+        this.load = false;
+        this.dialogRef.close(this.editForm.value.name);
+      },
+      (err) => {
+        this.load = false;
+        if (err.apiMsg) {
+          this.toastr.error((err.apiMsg ? 'Somthing wrong' : 'Server Error'), 'Error');
         }
+        this.dialogRef.close(null);
+      },
 
-      );
+    );
   }
-
 }
