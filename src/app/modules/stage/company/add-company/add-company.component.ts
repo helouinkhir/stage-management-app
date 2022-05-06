@@ -19,7 +19,7 @@ export class AddCompanyComponent implements OnInit {
     private addForm: FormGroup,
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<AddCompanyComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: ICompany,
   ) { }
 
   ngOnInit(): void {

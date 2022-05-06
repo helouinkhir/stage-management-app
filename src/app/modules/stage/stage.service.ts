@@ -4,6 +4,9 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { IStage } from 'src/app/shared/interfaces/stage.interface';
+import { IResponse } from 'src/app/shared/interfaces/response.interface';
+import { IResponseStage } from 'src/app/shared/interfaces/response-stage.interface';
+import { IResponseListStage } from 'src/app/shared/interfaces/response-list-stage.interface';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -22,34 +25,30 @@ export class StageService {
   constructor(private http: HttpClient) { }
 
   fetchStages(): Observable<IStage[]> {
-    return this.http.get(environment.apiUrl + this.url, { headers: this.headers }).pipe(
-      map((response: any) => {
-        if (!(response && response.success)) { throw { apiMsg: response.message }; }
+    return this.http
+      .get<IResponseListStage>(environment.apiUrl + this.url, { headers: this.headers })
+      .pipe(
+        map((response: IResponseListStage) => {
+          if (!(response && response.success)) { throw { apiMsg: response.message }; }
 
-        return response.data.map((d: any) => ({
-          id: d._id,
-          name: d.name,
-        }));
-      }),
-    );
+          return response.data;
+        }),
+      );
   }
 
   addStage(name: string): Observable<IStage> {
-    return this.http.post(`${environment.apiUrl + this.url}/add`, { name }, { headers: this.headers }).pipe(
-      map((response: any) => {
+    return this.http.post<IResponseStage>(`${environment.apiUrl + this.url}/add`, { name }, { headers: this.headers }).pipe(
+      map((response: IResponseStage) => {
         if (!(response && response.success)) { throw { apiMsg: response.message }; }
 
-        return {
-          id: response.data._id,
-          name: response.data.name,
-        };
+        return response.data;
       }),
     );
   }
 
   editStage(id: string, name: string): Observable<void> {
-    return this.http.post(`${environment.apiUrl + this.url}/update-name`, { id, name }, { headers: this.headers }).pipe(
-      map((response: any) => {
+    return this.http.post<IResponse>(`${environment.apiUrl + this.url}/update-name`, { id, name }, { headers: this.headers }).pipe(
+      map((response: IResponse) => {
         if (!(response && response.success)) { throw { apiMsg: response.message }; }
       }),
     );

@@ -28,7 +28,7 @@ export class StageComponent {
   }
 
   addCompany(): void {
-    if (!this.stage?.companies) {
+    if (this.stage && !this.stage?.companies) {
       this.stage.companies = [];
     }
 
@@ -37,8 +37,8 @@ export class StageComponent {
     });
 
     dialogRef.afterClosed().subscribe((newCompany: ICompany) => {
-      if (this.stage !== undefined && newCompany) {
-        this.stage.companies.push(newCompany);
+      if (this.stage && newCompany) {
+        this.stage.companies?.push(newCompany);
       }
     });
   }
